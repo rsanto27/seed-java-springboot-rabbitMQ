@@ -37,3 +37,10 @@ Example: `com.seed.rabbit.producer.AMQP.ProducerRabbitMQ`.
 6. Create an implementation to make requests for the queue. Example: `com.seed.rabbit.producer.AMQP.ProducerRabbitMQ`. Note, if we have any problem, we have to handle the problem with the exception `org.springframework.amqp.AmqpRejectAndDontRequeueException` because this will put the message inside deadLetter queue.
 7. Create a service to use de `com.seed.rabbit.producer.AMQP.ProducerRabbitMQ`. Example: `com.seed.rabbit.producer.service.RabbitMQService`.
 8. Create an endpoint to send a message by the service. Example: `com.seed.rabbit.api.AmqpApi`
+
+## Java Flow Comsumer
+1. Note, the consumer is inside the same producer's project, then it's used the same `RabbitJacksonConverterConfiguration` when spring makes the control inversion
+pattern.
+2. Create the consumer's configuration `com.seed.rabbit.consumer.configuration.RabbitConfigurationConsumer`.
+3. Create the listener responsible by consumes the queue `com.seed.rabbit.consumer.AMQP.ConsumerRabbitMQ`. Note, the annotation `@RabbitListener(queues = "${spring.rabbitmq.request.routing-key.producer}")` is responsible by create the listener, then when you make a request on /send endpoint, the producer flow, will
+put the data inside queue and the consumer method will handle the data.
