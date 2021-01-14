@@ -19,7 +19,7 @@ public class ConsumerRabbitMQ implements IAmqpConsumer<Message> {
 	@Override
 	@RabbitListener(queues = "${spring.rabbitmq.request.routing-key.producer}")
 	public void consumer(Message t) {
-		throw new AmqpRejectAndDontRequeueException("teste deadletter");
+		throw new AmqpRejectAndDontRequeueException("Problems when consumer queue, sending to deadLetter. Data: " + t.getText());
 	}
 
 }

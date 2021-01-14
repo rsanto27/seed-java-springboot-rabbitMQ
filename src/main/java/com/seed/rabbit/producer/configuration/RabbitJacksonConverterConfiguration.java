@@ -14,11 +14,12 @@ import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
-public class RabbitConfigurationProducer {
+public class RabbitJacksonConverterConfiguration {
 	
 	@Autowired
 	private ConnectionFactory connectionFactory;
 	
+	@Bean
 	public SimpleRabbitListenerContainerFactory simpleRabbitListener() {
 		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
 		factory.setConnectionFactory(connectionFactory);
